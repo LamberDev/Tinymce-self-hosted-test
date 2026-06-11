@@ -1,0 +1,27 @@
+{
+  "name": "vue3-app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Vue 3 app consuming self-hosted TinyMCE 8 (GPL) through a reusable <TinyEditor> component.",
+  "scripts": {
+    "postinstall": "node ../../scripts/copy-tinymce.mjs ./public/tinymce",
+    "predev": "node ../../scripts/copy-tinymce.mjs ./public/tinymce",
+    "prebuild": "node ../../scripts/copy-tinymce.mjs ./public/tinymce",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed"
+  },
+  "dependencies": {
+    "@tinymce/tinymce-vue": "^6.3.0",
+    "tinymce": "^8.6.0",
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@vitejs/plugin-vue": "^5.2.0",
+    "vite": "^6.0.0"
+  }
+}

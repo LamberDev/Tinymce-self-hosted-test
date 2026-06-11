@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TinyMCE self-hosted · AngularJS</title>
+    <style>
+      :root { color-scheme: light; }
+      body { margin: 0; background: #f4f5f7; }
+      .page { max-width: 960px; margin: 0 auto; padding: 24px; font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+      header h1 { margin-bottom: 4px; }
+      header p { color: #444; margin-top: 0; }
+      code { background: #e9ecef; padding: 1px 5px; border-radius: 4px; }
+      .bound { margin-top: 24px; }
+      .bound pre { background: #1e1e1e; color: #d4d4d4; padding: 16px; border-radius: 8px; overflow: auto; white-space: pre-wrap; word-break: break-word; }
+      [ng-cloak] { display: none !important; }
+    </style>
+  </head>
+  <body>
+    <div id="app-root" ng-cloak>
+      <main class="page" ng-controller="MainController as vm">
+        <header>
+          <h1>TinyMCE self-hosted · AngularJS</h1>
+          <p>
+            Editor cargado desde <code>/tinymce/tinymce.min.js</code>
+            (self-hosted, licencia GPL), envuelto en un componente reutilizable
+            <code>&lt;tiny-editor ng-model&gt;</code>.
+          </p>
+        </header>
+
+        <tiny-editor ng-model="vm.content"></tiny-editor>
+
+        <section class="bound">
+          <h2>Modelo enlazado (ng-model)</h2>
+          <p>Caracteres de texto: <strong data-testid="char-count">{{ vm.charCount() }}</strong></p>
+          <pre data-testid="model-output">{{ vm.content }}</pre>
+        </section>
+      </main>
+    </div>
+
+    <script src="/tinymce/tinymce.min.js"></script>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

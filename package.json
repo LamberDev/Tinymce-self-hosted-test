@@ -1,0 +1,20 @@
+{
+  "name": "tinymce-self-hosted-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Proof of concept: self-hosted TinyMCE 8 (GPL) shared between an AngularJS 1.x app and a Vue 3 app, wired up via npm postinstall.",
+  "type": "module",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:angularjs": "npm run dev -w apps/angularjs-app",
+    "dev:vue": "npm run dev -w apps/vue3-app",
+    "build": "npm run build --workspaces",
+    "copy:all": "npm run predev -w apps/angularjs-app && npm run predev -w apps/vue3-app",
+    "update:tinymce": "npm install tinymce@latest -w apps/angularjs-app -w apps/vue3-app && npm run copy:all",
+    "audit": "npm audit",
+    "test:e2e": "npm run test:e2e --workspaces"
+  },
+  "license": "GPL-2.0-or-later"
+}
