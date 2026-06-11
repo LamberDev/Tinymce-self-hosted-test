@@ -17,7 +17,6 @@
     </style>
   </head>
   <body>
-    <!-- Manual bootstrap happens in src/main.js, so no ng-app attribute here. -->
     <div id="app-root" ng-cloak>
       <main class="page" ng-controller="MainController as vm">
         <header>
@@ -29,7 +28,6 @@
           </p>
         </header>
 
-        <!-- The reusable component: the view just drops the tag and binds it. -->
         <tiny-editor ng-model="vm.content"></tiny-editor>
 
         <section class="bound">
@@ -40,9 +38,7 @@
       </main>
     </div>
 
-    <!-- Self-hosted TinyMCE core: classic script that defines window.tinymce. -->
     <script src="/tinymce/tinymce.min.js"></script>
-    <!-- App bundle (AngularJS modules + manual bootstrap). -->
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

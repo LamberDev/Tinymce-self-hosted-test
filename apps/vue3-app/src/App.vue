@@ -2,13 +2,10 @@
 import { ref, computed } from 'vue';
 import TinyEditor from './components/TinyEditor.vue';
 
-// The host view only imports the component and binds it. All editor logic
-// (self-hosting, license, plugins) lives inside <TinyEditor>.
 const content = ref(
   '<h2>Hola desde Vue 3 👋</h2><p>Edita este texto con <strong>TinyMCE 8 self-hosted</strong>.</p>'
 );
 
-// A plain-text length, handy as a "model is bound" signal in the UI and tests.
 const charCount = computed(() => content.value.replace(/<[^>]*>/g, '').length);
 </script>
 

@@ -2,13 +2,11 @@ import { test, expect } from '@playwright/test';
 
 const EVIDENCE = 'tests/evidence';
 
-// TinyMCE renders the editable area inside an iframe; the body is contenteditable.
 const editorFrame = (page) => page.frameLocator('iframe.tox-edit-area__iframe');
 const editorBody = (page) => editorFrame(page).locator('body#tinymce');
 
 test.describe('Vue 3 · self-hosted TinyMCE', () => {
   test('loads the editor from the self-hosted script (not the cloud)', async ({ page }) => {
-    // Capture the request for the editor core to prove it is served locally.
     const scriptResponse = page.waitForResponse(
       (res) => res.url().includes('/tinymce/tinymce.min.js') && res.status() === 200
     );
@@ -16,11 +14,9 @@ test.describe('Vue 3 · self-hosted TinyMCE', () => {
     await page.goto('/');
     const res = await scriptResponse;
 
-    // Served from our own dev server, never from cloud.tinymce.com.
     expect(new URL(res.url()).host).toBe(new URL(page.url()).host);
     expect(res.url()).not.toContain('tiny.cloud');
 
-    // Editor toolbar/chrome is present and there is no API-key warning notification.
     await expect(page.locator('.tox-tinymce')).toBeVisible();
     await expect(editorBody(page)).toBeVisible();
     await expect(page.locator('.tox-notification')).toHaveCount(0);
@@ -38,7 +34,6 @@ test.describe('Vue 3 · self-hosted TinyMCE', () => {
     await page.keyboard.press('Delete');
     await body.type('Texto escrito por Playwright en Vue 3.');
 
-    // The bound model (rendered in the debug <pre>) reflects what we typed.
     await expect(page.getByTestId('model-output')).toContainText(
       'Texto escrito por Playwright en Vue 3.'
     );
@@ -58,7 +53,6 @@ test.describe('Vue 3 · self-hosted TinyMCE', () => {
     await body.type('Texto en negrita');
     await page.keyboard.press('Control+A');
 
-    // Use the real toolbar button to apply bold.
     await page.getByRole('button', { name: 'Bold' }).click();
 
     await expect(page.getByTestId('model-output')).toContainText('<strong>');

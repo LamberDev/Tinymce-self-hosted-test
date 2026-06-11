@@ -2,7 +2,6 @@ import { test, expect } from '@playwright/test';
 
 const EVIDENCE = 'tests/evidence';
 
-// TinyMCE renders the editable area inside an iframe; the body is contenteditable.
 const editorFrame = (page) => page.frameLocator('iframe.tox-edit-area__iframe');
 const editorBody = (page) => editorFrame(page).locator('body#tinymce');
 
@@ -15,7 +14,6 @@ test.describe('AngularJS · self-hosted TinyMCE', () => {
     await page.goto('/');
     const res = await scriptResponse;
 
-    // Served from our own dev server, never from cloud.tinymce.com.
     expect(new URL(res.url()).host).toBe(new URL(page.url()).host);
     expect(res.url()).not.toContain('tiny.cloud');
 
@@ -36,7 +34,6 @@ test.describe('AngularJS · self-hosted TinyMCE', () => {
     await page.keyboard.press('Delete');
     await body.type('Texto escrito por Playwright en AngularJS.');
 
-    // The bound ng-model (rendered in the debug <pre>) reflects what we typed.
     await expect(page.getByTestId('model-output')).toContainText(
       'Texto escrito por Playwright en AngularJS.'
     );

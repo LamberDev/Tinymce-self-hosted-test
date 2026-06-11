@@ -1,8 +1,6 @@
 import angular from 'angular';
 import { TINY_EDITOR_MODULE } from './tiny-editor/tiny-editor.module.js';
 
-// The host app just declares the editor module as a dependency and uses the
-// <tiny-editor> tag in its view. No editor logic lives here.
 angular
   .module('app', [TINY_EDITOR_MODULE])
   .controller('MainController', function MainController() {

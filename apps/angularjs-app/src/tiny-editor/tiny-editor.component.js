@@ -1,20 +1,6 @@
 import angular from 'angular';
 import { TINY_EDITOR_MODULE } from './tiny-editor.module.js';
 
-/**
- * <tiny-editor ng-model="..."> — reusable AngularJS component that wraps the
- * self-hosted TinyMCE 8 editor and behaves like a normal ngModel form control.
- *
- * Usage (after declaring TINY_EDITOR_MODULE as a dependency of your module):
- *   <tiny-editor ng-model="vm.content"></tiny-editor>
- *   <tiny-editor ng-model="vm.content" init="{ height: 300 }"></tiny-editor>
- *
- * It loads from the global `window.tinymce` provided by the self-hosted
- * /tinymce/tinymce.min.js and declares the GPL license key (no API key needed).
- */
-
-// Rich default config: every open-source plugin bundled with TinyMCE 8.
-// (Premium plugins are intentionally omitted — not part of the GPL package.)
 const DEFAULT_INIT = {
   height: 480,
   menubar: 'file edit view insert format tools table help',
@@ -56,13 +42,11 @@ function TinyEditorController($element, $scope) {
         editor = ed;
 
         ed.on('init', function () {
-          // Push the current model value into the freshly created editor.
           if ($ctrl.ngModelCtrl) {
             ed.setContent($ctrl.ngModelCtrl.$viewValue || '');
           }
         });
 
-        // Editor -> model.
         ed.on('change keyup input undo redo SetContent', function () {
           const html = ed.getContent();
           if (!$ctrl.ngModelCtrl || $ctrl.ngModelCtrl.$viewValue === html) return;
@@ -73,7 +57,6 @@ function TinyEditorController($element, $scope) {
       },
     });
 
-    // Model -> editor (programmatic updates after init).
     if ($ctrl.ngModelCtrl) {
       $ctrl.ngModelCtrl.$render = function () {
         const value = $ctrl.ngModelCtrl.$viewValue || '';

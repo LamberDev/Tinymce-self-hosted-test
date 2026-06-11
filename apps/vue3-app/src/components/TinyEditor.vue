@@ -1,22 +1,9 @@
 <script setup>
-/**
- * TinyEditor — reusable Vue 3 wrapper around the self-hosted TinyMCE 8 editor.
- *
- * Import it anywhere and bind with v-model:
- *   <TinyEditor v-model="content" />
- *   <TinyEditor v-model="content" :init="{ height: 300 }" />
- *
- * It always:
- *   - loads the editor from the self-hosted copy (/tinymce/tinymce.min.js),
- *     never from the TinyMCE cloud CDN, and
- *   - declares the GPL license key so no API key / paid plan is required.
- */
 import { computed } from 'vue';
 import Editor from '@tinymce/tinymce-vue';
 
 const props = defineProps({
   modelValue: { type: String, default: '' },
-  // Optional overrides merged on top of the rich default config.
   init: { type: Object, default: () => ({}) },
   disabled: { type: Boolean, default: false },
 });
@@ -28,9 +15,6 @@ const value = computed({
   set: (v) => emit('update:modelValue', v),
 });
 
-// Rich default config using every open-source plugin bundled with TinyMCE 8.
-// (Premium plugins such as powerpaste / tinymcespellchecker are NOT part of
-// the self-hosted GPL package and are intentionally omitted.)
 const defaultInit = {
   height: 480,
   menubar: 'file edit view insert format tools table help',
