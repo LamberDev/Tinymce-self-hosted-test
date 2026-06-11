@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+apps/*/dist/
+
+# Self-hosted TinyMCE assets (vendored at install time via postinstall, never committed)
+apps/*/public/tinymce/
+
+# Playwright
+test-results/
+apps/*/test-results/
+playwright-report/
+apps/*/playwright-report/
+.playwright/
+
+# Logs / misc
+*.log
+npm-debug.log*
+.DS_Store
